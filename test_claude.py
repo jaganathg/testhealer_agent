@@ -9,7 +9,7 @@ def test_claude_connection():
         
         # Create Claude client
         llm = ChatAnthropic(
-            model="claude-3-5-sonnet-20241022",
+            model="claude-sonnet-4-20250514",
             api_key=ANTHROPIC_API_KEY,
             temperature=0
         )
