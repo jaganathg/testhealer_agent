@@ -1,0 +1,70 @@
+{
+  "test_failure": {
+    "test_file": "/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/tests/api/test_users.py",
+    "test_name": "test_get_user",
+    "error_type": "KeyError",
+    "error_message": "'firstName'",
+    "actual": "data[\"firstName\"]",
+    "expected": "Leanne Graham",
+    "line_number": 13,
+    "traceback": "Traceback (most recent call last):\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/runner.py\", line 353, in from_call\n    result: TResult | None = func()\n                             ^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/runner.py\", line 245, in <lambda>\n    lambda: runtest_hook(item=item, **kwds),\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_hooks.py\", line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_manager.py\", line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 167, in _multicall\n    raise exception\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 139, in _multicall\n    teardown.throw(exception)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/logging.py\", line 850, in pytest_runtest_call\n    yield\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 139, in _multicall\n    teardown.throw(exception)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/capture.py\", line 900, in pytest_runtest_call\n    return (yield)\n            ^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 139, in _multicall\n    teardown.throw(exception)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 53, in run_old_style_hookwrapper\n    return result.get_result()\n           ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_result.py\", line 103, in get_result\n    raise exc.with_traceback(tb)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 38, in run_old_style_hookwrapper\n    res = yield\n          ^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 139, in _multicall\n    teardown.throw(exception)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/skipping.py\", line 268, in pytest_runtest_call\n    return (yield)\n            ^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 121, in _multicall\n    res = hook_impl.function(*args)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/runner.py\", line 179, in pytest_runtest_call\n    item.runtest()\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/python.py\", line 1720, in runtest\n    self.ihook.pytest_pyfunc_call(pyfuncitem=self)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_hooks.py\", line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_manager.py\", line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 167, in _multicall\n    raise exception\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 121, in _multicall\n    res = hook_impl.function(*args)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/python.py\", line 166, in pytest_pyfunc_call\n    result = testfunction(**testargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/tests/api/test_users.py\", line 13, in test_get_user\n    assert data[\"firstName\"] == \"Leanne Graham\"\n           ~~~~^^^^^^^^^^^^^\nKeyError: 'firstName'\n"
+  },
+  "api_response": {
+    "status_code": 200,
+    "body": {
+      "id": 1,
+      "name": "Leanne Graham",
+      "username": "Bret",
+      "email": "Sincere@april.biz",
+      "address": {
+        "street": "Kulas Light",
+        "suite": "Apt. 556",
+        "city": "Gwenborough",
+        "zipcode": "92998-3874",
+        "geo": {
+          "lat": "-37.3159",
+          "lng": "81.1496"
+        }
+      },
+      "phone": "1-770-736-8031 x56442",
+      "website": "hildegard.org",
+      "company": {
+        "name": "Romaguera-Crona",
+        "catchPhrase": "Multi-layered client-server neural-net",
+        "bs": "harness real-time e-markets"
+      }
+    },
+    "headers": {
+      "date": "Fri, 30 Jan 2026 20:20:44 GMT",
+      "content-type": "application/json; charset=utf-8",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "access-control-allow-credentials": "true",
+      "cache-control": "max-age=43200",
+      "etag": "W/\"1fd-+2Y3G3w049iSZtw5t1mzSnunngE\"",
+      "expires": "-1",
+      "nel": "{\"report_to\":\"heroku-nel\",\"response_headers\":[\"Via\"],\"max_age\":3600,\"success_fraction\":0.01,\"failure_fraction\":0.1}",
+      "pragma": "no-cache",
+      "report-to": "{\"group\":\"heroku-nel\",\"endpoints\":[{\"url\":\"https://nel.heroku.com/reports?s=t2uVgfDzwi7727RQfHBdj%2BdHMYVvHYRre6Vp4F7iBlk%3D\\u0026sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d\\u0026ts=1769256957\"}],\"max_age\":3600}",
+      "reporting-endpoints": "heroku-nel=\"https://nel.heroku.com/reports?s=t2uVgfDzwi7727RQfHBdj%2BdHMYVvHYRre6Vp4F7iBlk%3D&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&ts=1769256957\"",
+      "server": "cloudflare",
+      "vary": "Origin, Accept-Encoding",
+      "via": "2.0 heroku-router",
+      "x-content-type-options": "nosniff",
+      "x-powered-by": "Express",
+      "x-ratelimit-limit": "1000",
+      "x-ratelimit-remaining": "826",
+      "x-ratelimit-reset": "1769256985",
+      "age": "2058",
+      "cf-cache-status": "HIT",
+      "content-encoding": "zstd",
+      "cf-ray": "9c63abf4fac960e4-LHR",
+      "alt-svc": "h3=\":443\"; ma=86400"
+    },
+    "url": "https://jsonplaceholder.typicode.com/users/1"
+  },
+  "request_method": "GET",
+  "request_url": "https://jsonplaceholder.typicode.com/users/1",
+  "request_payload": null,
+  "timestamp": "2026-01-30T21:20:44.921431"
+}

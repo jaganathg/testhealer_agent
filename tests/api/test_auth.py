@@ -4,11 +4,6 @@ import httpx
 
 BASE_URL = "https://jsonplaceholder.typicode.com"
 
-@pytest.fixture
-def client():
-    """HTTP client fixture."""
-    return httpx.Client(timeout=10.0)
-
 def test_get_post(client):
     """Test GET single post - fragile: hardcoded ID and field assertions."""
     response = client.get(f"{BASE_URL}/posts/1")

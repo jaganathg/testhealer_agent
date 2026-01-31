@@ -1,0 +1,280 @@
+{
+  "test_failure": {
+    "test_file": "/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/tests/api/test_users.py",
+    "test_name": "test_list_users",
+    "error_type": "AssertionError",
+    "error_message": "assert 10 == 12\n +  where 10 = len([{'address': {'city': 'Gwenborough', 'geo': {'lat': '-37.3159', 'lng': '81.1496'}, 'street': 'Kulas Light', 'suite': 'Apt. 556', ...}, 'company': {'bs': 'harness real-time e-markets', 'catchPhrase': 'Multi-layered client-server neural-net', 'name': 'Romaguera-Crona'}, 'email': 'Sincere@april.biz', 'id': 1, ...}, {'address': {'city': 'Wisokyburgh', 'geo': {'lat': '-43.9509', 'lng': '-34.4618'}, 'street': 'Victor Plains', 'suite': 'Suite 879', ...}, 'company': {'bs': 'synergize scalable supply-chains', 'catchPhrase': 'Proactive didactic contingency', 'name': 'Deckow-Crist'}, 'email': 'Shanna@melissa.tv', 'id': 2, ...}, {'address': {'city': 'McKenziehaven', 'geo': {'lat': '-68.6102', 'lng': '-47.0653'}, 'street': 'Douglas Extension', 'suite': 'Suite 847', ...}, 'company': {'bs': 'e-enable strategic applications', 'catchPhrase': 'Face to face bifurcated interface', 'name': 'Romaguera-Jacobson'}, 'email': 'Nathan@yesenia.net', 'id': 3, ...}, {'address': {'city': 'South Elvis', 'geo': {'lat': '29.4572', 'lng': '-164.2990'}, 'street': 'Hoeger Mall', 'suite': 'Apt. 692', ...}, 'company': {'bs': 'transition cutting-edge web services', 'catchPhrase': 'Multi-tiered zero tolerance productivity', 'name': 'Robel-Corkery'}, 'email': 'Julianne.OConner@kory.org', 'id': 4, ...}, {'address': {'city': 'Roscoeview', 'geo': {'lat': '-31.8129', 'lng': '62.5342'}, 'street': 'Skiles Walks', 'suite': 'Suite 351', ...}, 'company': {'bs': 'revolutionize end-to-end systems', 'catchPhrase': 'User-centric fault-tolerant solution', 'name': 'Keebler LLC'}, 'email': 'Lucio_Hettinger@annie.ca', 'id': 5, ...}, {'address': {'city': 'South Christy', 'geo': {'lat': '-71.4197', 'lng': '71.7478'}, 'street': 'Norberto Crossing', 'suite': 'Apt. 950', ...}, 'company': {'bs': 'e-enable innovative applications', 'catchPhrase': 'Synchronised bottom-line interface', 'name': 'Considine-Lockman'}, 'email': 'Karley_Dach@jasper.info', 'id': 6, ...}, ...])",
+    "actual": "10",
+    "expected": "12",
+    "line_number": 30,
+    "traceback": "Traceback (most recent call last):\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/runner.py\", line 353, in from_call\n    result: TResult | None = func()\n                             ^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/runner.py\", line 245, in <lambda>\n    lambda: runtest_hook(item=item, **kwds),\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_hooks.py\", line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_manager.py\", line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 167, in _multicall\n    raise exception\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 139, in _multicall\n    teardown.throw(exception)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/logging.py\", line 850, in pytest_runtest_call\n    yield\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 139, in _multicall\n    teardown.throw(exception)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/capture.py\", line 900, in pytest_runtest_call\n    return (yield)\n            ^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 139, in _multicall\n    teardown.throw(exception)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 53, in run_old_style_hookwrapper\n    return result.get_result()\n           ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_result.py\", line 103, in get_result\n    raise exc.with_traceback(tb)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 38, in run_old_style_hookwrapper\n    res = yield\n          ^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 139, in _multicall\n    teardown.throw(exception)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/skipping.py\", line 268, in pytest_runtest_call\n    return (yield)\n            ^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 121, in _multicall\n    res = hook_impl.function(*args)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/runner.py\", line 179, in pytest_runtest_call\n    item.runtest()\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/python.py\", line 1720, in runtest\n    self.ihook.pytest_pyfunc_call(pyfuncitem=self)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_hooks.py\", line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_manager.py\", line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 167, in _multicall\n    raise exception\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 121, in _multicall\n    res = hook_impl.function(*args)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/python.py\", line 166, in pytest_pyfunc_call\n    result = testfunction(**testargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/tests/api/test_users.py\", line 30, in test_list_users\n    assert len(data) == 12\nAssertionError: assert 10 == 12\n +  where 10 = len([{'address': {'city': 'Gwenborough', 'geo': {'lat': '-37.3159', 'lng': '81.1496'}, 'street': 'Kulas Light', 'suite': 'Apt. 556', ...}, 'company': {'bs': 'harness real-time e-markets', 'catchPhrase': 'Multi-layered client-server neural-net', 'name': 'Romaguera-Crona'}, 'email': 'Sincere@april.biz', 'id': 1, ...}, {'address': {'city': 'Wisokyburgh', 'geo': {'lat': '-43.9509', 'lng': '-34.4618'}, 'street': 'Victor Plains', 'suite': 'Suite 879', ...}, 'company': {'bs': 'synergize scalable supply-chains', 'catchPhrase': 'Proactive didactic contingency', 'name': 'Deckow-Crist'}, 'email': 'Shanna@melissa.tv', 'id': 2, ...}, {'address': {'city': 'McKenziehaven', 'geo': {'lat': '-68.6102', 'lng': '-47.0653'}, 'street': 'Douglas Extension', 'suite': 'Suite 847', ...}, 'company': {'bs': 'e-enable strategic applications', 'catchPhrase': 'Face to face bifurcated interface', 'name': 'Romaguera-Jacobson'}, 'email': 'Nathan@yesenia.net', 'id': 3, ...}, {'address': {'city': 'South Elvis', 'geo': {'lat': '29.4572', 'lng': '-164.2990'}, 'street': 'Hoeger Mall', 'suite': 'Apt. 692', ...}, 'company': {'bs': 'transition cutting-edge web services', 'catchPhrase': 'Multi-tiered zero tolerance productivity', 'name': 'Robel-Corkery'}, 'email': 'Julianne.OConner@kory.org', 'id': 4, ...}, {'address': {'city': 'Roscoeview', 'geo': {'lat': '-31.8129', 'lng': '62.5342'}, 'street': 'Skiles Walks', 'suite': 'Suite 351', ...}, 'company': {'bs': 'revolutionize end-to-end systems', 'catchPhrase': 'User-centric fault-tolerant solution', 'name': 'Keebler LLC'}, 'email': 'Lucio_Hettinger@annie.ca', 'id': 5, ...}, {'address': {'city': 'South Christy', 'geo': {'lat': '-71.4197', 'lng': '71.7478'}, 'street': 'Norberto Crossing', 'suite': 'Apt. 950', ...}, 'company': {'bs': 'e-enable innovative applications', 'catchPhrase': 'Synchronised bottom-line interface', 'name': 'Considine-Lockman'}, 'email': 'Karley_Dach@jasper.info', 'id': 6, ...}, ...])\n"
+  },
+  "api_response": {
+    "status_code": 200,
+    "body": [
+      {
+        "id": 1,
+        "name": "Leanne Graham",
+        "username": "Bret",
+        "email": "Sincere@april.biz",
+        "address": {
+          "street": "Kulas Light",
+          "suite": "Apt. 556",
+          "city": "Gwenborough",
+          "zipcode": "92998-3874",
+          "geo": {
+            "lat": "-37.3159",
+            "lng": "81.1496"
+          }
+        },
+        "phone": "1-770-736-8031 x56442",
+        "website": "hildegard.org",
+        "company": {
+          "name": "Romaguera-Crona",
+          "catchPhrase": "Multi-layered client-server neural-net",
+          "bs": "harness real-time e-markets"
+        }
+      },
+      {
+        "id": 2,
+        "name": "Ervin Howell",
+        "username": "Antonette",
+        "email": "Shanna@melissa.tv",
+        "address": {
+          "street": "Victor Plains",
+          "suite": "Suite 879",
+          "city": "Wisokyburgh",
+          "zipcode": "90566-7771",
+          "geo": {
+            "lat": "-43.9509",
+            "lng": "-34.4618"
+          }
+        },
+        "phone": "010-692-6593 x09125",
+        "website": "anastasia.net",
+        "company": {
+          "name": "Deckow-Crist",
+          "catchPhrase": "Proactive didactic contingency",
+          "bs": "synergize scalable supply-chains"
+        }
+      },
+      {
+        "id": 3,
+        "name": "Clementine Bauch",
+        "username": "Samantha",
+        "email": "Nathan@yesenia.net",
+        "address": {
+          "street": "Douglas Extension",
+          "suite": "Suite 847",
+          "city": "McKenziehaven",
+          "zipcode": "59590-4157",
+          "geo": {
+            "lat": "-68.6102",
+            "lng": "-47.0653"
+          }
+        },
+        "phone": "1-463-123-4447",
+        "website": "ramiro.info",
+        "company": {
+          "name": "Romaguera-Jacobson",
+          "catchPhrase": "Face to face bifurcated interface",
+          "bs": "e-enable strategic applications"
+        }
+      },
+      {
+        "id": 4,
+        "name": "Patricia Lebsack",
+        "username": "Karianne",
+        "email": "Julianne.OConner@kory.org",
+        "address": {
+          "street": "Hoeger Mall",
+          "suite": "Apt. 692",
+          "city": "South Elvis",
+          "zipcode": "53919-4257",
+          "geo": {
+            "lat": "29.4572",
+            "lng": "-164.2990"
+          }
+        },
+        "phone": "493-170-9623 x156",
+        "website": "kale.biz",
+        "company": {
+          "name": "Robel-Corkery",
+          "catchPhrase": "Multi-tiered zero tolerance productivity",
+          "bs": "transition cutting-edge web services"
+        }
+      },
+      {
+        "id": 5,
+        "name": "Chelsey Dietrich",
+        "username": "Kamren",
+        "email": "Lucio_Hettinger@annie.ca",
+        "address": {
+          "street": "Skiles Walks",
+          "suite": "Suite 351",
+          "city": "Roscoeview",
+          "zipcode": "33263",
+          "geo": {
+            "lat": "-31.8129",
+            "lng": "62.5342"
+          }
+        },
+        "phone": "(254)954-1289",
+        "website": "demarco.info",
+        "company": {
+          "name": "Keebler LLC",
+          "catchPhrase": "User-centric fault-tolerant solution",
+          "bs": "revolutionize end-to-end systems"
+        }
+      },
+      {
+        "id": 6,
+        "name": "Mrs. Dennis Schulist",
+        "username": "Leopoldo_Corkery",
+        "email": "Karley_Dach@jasper.info",
+        "address": {
+          "street": "Norberto Crossing",
+          "suite": "Apt. 950",
+          "city": "South Christy",
+          "zipcode": "23505-1337",
+          "geo": {
+            "lat": "-71.4197",
+            "lng": "71.7478"
+          }
+        },
+        "phone": "1-477-935-8478 x6430",
+        "website": "ola.org",
+        "company": {
+          "name": "Considine-Lockman",
+          "catchPhrase": "Synchronised bottom-line interface",
+          "bs": "e-enable innovative applications"
+        }
+      },
+      {
+        "id": 7,
+        "name": "Kurtis Weissnat",
+        "username": "Elwyn.Skiles",
+        "email": "Telly.Hoeger@billy.biz",
+        "address": {
+          "street": "Rex Trail",
+          "suite": "Suite 280",
+          "city": "Howemouth",
+          "zipcode": "58804-1099",
+          "geo": {
+            "lat": "24.8918",
+            "lng": "21.8984"
+          }
+        },
+        "phone": "210.067.6132",
+        "website": "elvis.io",
+        "company": {
+          "name": "Johns Group",
+          "catchPhrase": "Configurable multimedia task-force",
+          "bs": "generate enterprise e-tailers"
+        }
+      },
+      {
+        "id": 8,
+        "name": "Nicholas Runolfsdottir V",
+        "username": "Maxime_Nienow",
+        "email": "Sherwood@rosamond.me",
+        "address": {
+          "street": "Ellsworth Summit",
+          "suite": "Suite 729",
+          "city": "Aliyaview",
+          "zipcode": "45169",
+          "geo": {
+            "lat": "-14.3990",
+            "lng": "-120.7677"
+          }
+        },
+        "phone": "586.493.6943 x140",
+        "website": "jacynthe.com",
+        "company": {
+          "name": "Abernathy Group",
+          "catchPhrase": "Implemented secondary concept",
+          "bs": "e-enable extensible e-tailers"
+        }
+      },
+      {
+        "id": 9,
+        "name": "Glenna Reichert",
+        "username": "Delphine",
+        "email": "Chaim_McDermott@dana.io",
+        "address": {
+          "street": "Dayna Park",
+          "suite": "Suite 449",
+          "city": "Bartholomebury",
+          "zipcode": "76495-3109",
+          "geo": {
+            "lat": "24.6463",
+            "lng": "-168.8889"
+          }
+        },
+        "phone": "(775)976-6794 x41206",
+        "website": "conrad.com",
+        "company": {
+          "name": "Yost and Sons",
+          "catchPhrase": "Switchable contextually-based project",
+          "bs": "aggregate real-time technologies"
+        }
+      },
+      {
+        "id": 10,
+        "name": "Clementina DuBuque",
+        "username": "Moriah.Stanton",
+        "email": "Rey.Padberg@karina.biz",
+        "address": {
+          "street": "Kattie Turnpike",
+          "suite": "Suite 198",
+          "city": "Lebsackbury",
+          "zipcode": "31428-2261",
+          "geo": {
+            "lat": "-38.2386",
+            "lng": "57.2232"
+          }
+        },
+        "phone": "024-648-3804",
+        "website": "ambrose.net",
+        "company": {
+          "name": "Hoeger LLC",
+          "catchPhrase": "Centralized empowering task-force",
+          "bs": "target end-to-end models"
+        }
+      }
+    ],
+    "headers": {
+      "date": "Fri, 30 Jan 2026 20:20:45 GMT",
+      "content-type": "application/json; charset=utf-8",
+      "content-length": "1847",
+      "connection": "keep-alive",
+      "access-control-allow-credentials": "true",
+      "cache-control": "max-age=43200",
+      "content-encoding": "gzip",
+      "etag": "W/\"160d-1eMSsxeJRfnVLRBmYJSbCiJZ1qQ\"",
+      "expires": "-1",
+      "nel": "{\"report_to\":\"heroku-nel\",\"response_headers\":[\"Via\"],\"max_age\":3600,\"success_fraction\":0.01,\"failure_fraction\":0.1}",
+      "pragma": "no-cache",
+      "report-to": "{\"group\":\"heroku-nel\",\"endpoints\":[{\"url\":\"https://nel.heroku.com/reports?s=yHLwL6Bwb7cg%2FwmPOPBqnlPevgR%2Fe5h%2FqXrTkg9F0Oo%3D\\u0026sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d\\u0026ts=1769073252\"}],\"max_age\":3600}",
+      "reporting-endpoints": "heroku-nel=\"https://nel.heroku.com/reports?s=yHLwL6Bwb7cg%2FwmPOPBqnlPevgR%2Fe5h%2FqXrTkg9F0Oo%3D&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&ts=1769073252\"",
+      "server": "cloudflare",
+      "vary": "Origin, Accept-Encoding",
+      "via": "2.0 heroku-router",
+      "x-content-type-options": "nosniff",
+      "x-powered-by": "Express",
+      "x-ratelimit-limit": "1000",
+      "x-ratelimit-remaining": "999",
+      "x-ratelimit-reset": "1769073295",
+      "age": "11145",
+      "accept-ranges": "bytes",
+      "cf-cache-status": "HIT",
+      "cf-ray": "9c63abf66c557747-LHR",
+      "alt-svc": "h3=\":443\"; ma=86400"
+    },
+    "url": "https://jsonplaceholder.typicode.com/users"
+  },
+  "request_method": "GET",
+  "request_url": "https://jsonplaceholder.typicode.com/users",
+  "request_payload": null,
+  "timestamp": "2026-01-30T21:20:45.148302"
+}

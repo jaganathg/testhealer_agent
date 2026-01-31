@@ -1,0 +1,53 @@
+{
+  "test_failure": {
+    "test_file": "/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/tests/api/test_auth.py",
+    "test_name": "test_get_post",
+    "error_type": "AssertionError",
+    "error_message": "assert 'postTitle' in {'body': 'quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto', 'id': 1, 'title': 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', 'userId': 1}",
+    "actual": null,
+    "expected": "postTitle",
+    "line_number": 16,
+    "traceback": "Traceback (most recent call last):\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/runner.py\", line 353, in from_call\n    result: TResult | None = func()\n                             ^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/runner.py\", line 245, in <lambda>\n    lambda: runtest_hook(item=item, **kwds),\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_hooks.py\", line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_manager.py\", line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 167, in _multicall\n    raise exception\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 139, in _multicall\n    teardown.throw(exception)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/logging.py\", line 850, in pytest_runtest_call\n    yield\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 139, in _multicall\n    teardown.throw(exception)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/capture.py\", line 900, in pytest_runtest_call\n    return (yield)\n            ^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 139, in _multicall\n    teardown.throw(exception)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 53, in run_old_style_hookwrapper\n    return result.get_result()\n           ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_result.py\", line 103, in get_result\n    raise exc.with_traceback(tb)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 38, in run_old_style_hookwrapper\n    res = yield\n          ^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 139, in _multicall\n    teardown.throw(exception)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/skipping.py\", line 268, in pytest_runtest_call\n    return (yield)\n            ^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 121, in _multicall\n    res = hook_impl.function(*args)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/runner.py\", line 179, in pytest_runtest_call\n    item.runtest()\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/python.py\", line 1720, in runtest\n    self.ihook.pytest_pyfunc_call(pyfuncitem=self)\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_hooks.py\", line 512, in __call__\n    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_manager.py\", line 120, in _hookexec\n    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 167, in _multicall\n    raise exception\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/pluggy/_callers.py\", line 121, in _multicall\n    res = hook_impl.function(*args)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/.venv/lib/python3.12/site-packages/_pytest/python.py\", line 166, in pytest_pyfunc_call\n    result = testfunction(**testargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/jaganath.gajendran/Desktop/J_Study/AI/agentic_testing/testhealer_agent/tests/api/test_auth.py\", line 16, in test_get_post\n    assert \"postTitle\" in data\nAssertionError: assert 'postTitle' in {'body': 'quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto', 'id': 1, 'title': 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', 'userId': 1}\n"
+  },
+  "api_response": {
+    "status_code": 200,
+    "body": {
+      "userId": 1,
+      "id": 1,
+      "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+      "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+    },
+    "headers": {
+      "date": "Fri, 30 Jan 2026 20:20:41 GMT",
+      "content-type": "application/json; charset=utf-8",
+      "transfer-encoding": "chunked",
+      "connection": "keep-alive",
+      "access-control-allow-credentials": "true",
+      "cache-control": "max-age=43200",
+      "etag": "W/\"124-yiKdLzqO5gfBrJFrcdJ8Yq0LGnU\"",
+      "expires": "-1",
+      "nel": "{\"report_to\":\"heroku-nel\",\"response_headers\":[\"Via\"],\"max_age\":3600,\"success_fraction\":0.01,\"failure_fraction\":0.1}",
+      "pragma": "no-cache",
+      "report-to": "{\"group\":\"heroku-nel\",\"endpoints\":[{\"url\":\"https://nel.heroku.com/reports?s=LSOHapSepH21MPgKZipCsD%2FqPKKSj2MKSQVEXplidLg%3D\\u0026sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d\\u0026ts=1763748479\"}],\"max_age\":3600}",
+      "reporting-endpoints": "heroku-nel=\"https://nel.heroku.com/reports?s=LSOHapSepH21MPgKZipCsD%2FqPKKSj2MKSQVEXplidLg%3D&sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&ts=1763748479\"",
+      "server": "cloudflare",
+      "vary": "Origin, Accept-Encoding",
+      "via": "2.0 heroku-router",
+      "x-content-type-options": "nosniff",
+      "x-powered-by": "Express",
+      "x-ratelimit-limit": "1000",
+      "x-ratelimit-remaining": "914",
+      "x-ratelimit-reset": "1763748506",
+      "age": "28720",
+      "cf-cache-status": "HIT",
+      "content-encoding": "zstd",
+      "cf-ray": "9c63abdd2e69f65a-LHR",
+      "alt-svc": "h3=\":443\"; ma=86400"
+    },
+    "url": "https://jsonplaceholder.typicode.com/posts/1"
+  },
+  "request_method": "GET",
+  "request_url": "https://jsonplaceholder.typicode.com/posts/1",
+  "request_payload": null,
+  "timestamp": "2026-01-30T21:20:41.136323"
+}

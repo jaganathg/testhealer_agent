@@ -4,11 +4,6 @@ import httpx
 
 BASE_URL = "https://jsonplaceholder.typicode.com"
 
-@pytest.fixture
-def client():
-    """HTTP client fixture."""
-    return httpx.Client(timeout=10.0)
-
 def test_list_comments(client):
     """Test GET comments list - fragile: hardcoded count expectation."""
     response = client.get(f"{BASE_URL}/comments")
