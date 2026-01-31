@@ -30,6 +30,7 @@ The codebase is organized into modular components:
 testhealer_agent/
 ├── src/
 │   ├── agent/          # Core healer agent (to be implemented)
+│   │   └── tools.py    # ✅ Agent tools for file ops, test execution, API calls (IMPLEMENTED)
 │   ├── analyzer/       # ✅ Failure analysis module (IMPLEMENTED)
 │   │   └── failure_parser.py  # Pydantic data models
 │   └── generator/      # Test generation module (to be implemented)
@@ -212,6 +213,133 @@ When tests fail, JSON files are automatically created in the `failures/` directo
 - **Error extraction**: Intelligent parsing of assertion errors to extract actual/expected values
 - **Persistent storage**: JSON files persist for agent analysis and debugging
 
+## Agent Tools Module
+
+The agent tools module provides the core functionality that enables the LangChain agent to interact with the codebase, execute tests, and call APIs. These tools are wrapped as LangChain `StructuredTool` objects, making them directly usable by the agent for automated test healing.
+
+**Components:**
+- **Tool Functions** (`src/agent/tools.py`): Five core tools for agent operations
+- **LangChain Wrappers**: Structured tool interfaces for agent binding
+- **Path Validation**: Security checks to prevent unauthorized file access
+- **Backup System**: Automatic file backups before modifications
+
+### Available Tools
+
+The module provides five essential tools for the healing agent:
+
+1. **`read_test_file`**: Read test file content
+   - Validates file path is within `tests/` directory
+   - Returns file content or error message
+   - Used by agent to examine existing test code before making fixes
+
+2. **`write_test_file`**: Write or update test files
+   - Automatically creates timestamped backups before modification
+   - Validates paths and ensures directory structure exists
+   - Returns backup path for rollback capability
+   - Used by agent to apply fixes to test files
+
+3. **`run_single_test`**: Execute individual tests using pytest
+   - Supports both single test (`test_file.py::test_function`) and file-level execution
+   - Captures pytest output, execution duration, and pass/fail status
+   - 30-second timeout to prevent hanging tests
+   - Used by agent to validate fixes after modifications
+
+4. **`call_api`**: Make HTTP requests to target API
+   - Supports GET, POST, PUT, DELETE, PATCH methods
+   - Handles both absolute URLs and relative paths (auto-prepends base URL)
+   - Returns status code, response body, and headers
+   - Used by agent to verify API behavior and understand actual responses
+
+5. **`list_test_files`**: List all test files in `tests/api/` directory
+   - Discovers available test files for agent analysis
+   - Returns sorted list of test file paths
+   - Used by agent to understand test suite structure
+
+### Security & Validation
+
+**Path Validation:**
+- All file operations validate paths are within project root
+- Restricts file access to `tests/` directory only
+- Prevents directory traversal attacks (`../` patterns)
+- Handles both relative and absolute paths safely
+
+**Backup System:**
+- Automatic backups created before file modifications
+- Timestamped backup files stored in `failures/.backups/`
+- Format: `{filename}.backup.{timestamp}.py`
+- Logging for backup operations (warnings, info, errors)
+- Enables rollback if agent fixes cause issues
+
+### LangChain Integration
+
+All tools are wrapped using `StructuredTool.from_function()` which:
+- Provides structured input validation via Pydantic schemas
+- Adds descriptive tool names and descriptions for agent decision-making
+- Enables automatic tool discovery and binding
+- Ensures consistent error handling and return formats
+
+**Tool Export:**
+```python
+ALL_TOOLS = [
+    read_test_file_tool,
+    write_test_file_tool,
+    run_single_test_tool,
+    call_api_tool,
+    list_test_files_tool,
+]
+```
+
+These tools are ready to be bound to the LangChain agent in Phase 5.
+
+### Error Handling
+
+All tools use a consistent error handling pattern:
+- **Structured returns**: Each tool returns a dictionary with `success` flag
+- **No exceptions**: Errors are captured and returned as structured responses
+- **Descriptive messages**: Clear error messages help agent understand failures
+- **Graceful degradation**: Tools fail safely without crashing the agent
+
+**Example return format:**
+```python
+{
+    "success": bool,
+    "result_data": Any,  # Tool-specific data
+    "error": str | None   # Error message if failed
+}
+```
+
+### Testing
+
+All tools are thoroughly tested with unit tests in `tests/test_tools.py`:
+- Two tests per tool (success and failure cases)
+- Path validation tests
+- Error handling verification
+- Integration with pytest execution
+
+### Usage Example
+
+```python
+from src.agent.tools import ALL_TOOLS
+
+# Tools can be used directly
+result = read_test_file("tests/api/test_users.py")
+if result["success"]:
+    content = result["content"]
+    
+# Or bound to LangChain agent
+agent = create_agent(tools=ALL_TOOLS)
+```
+
+### Key Features
+
+- **Five functional tools**: Complete toolkit for agent operations
+- **Security-first**: Path validation prevents unauthorized access
+- **Backup protection**: Automatic backups before file modifications
+- **LangChain ready**: Structured tools for direct agent binding
+- **Comprehensive testing**: All tools tested independently
+- **Error resilience**: Structured error handling prevents agent crashes
+- **Logging support**: Backup operations logged for debugging
+
 ### How It Works
 
 The agent follows a reactive healing approach:
@@ -225,10 +353,13 @@ The agent follows a reactive healing approach:
 
 ## Next Steps
 
-The failure analyzer module is fully implemented and capturing test failures with complete HTTP context. Failure JSON files are automatically generated in the `failures/` directory for each test failure.
+The failure analyzer module and agent tools are fully implemented. The system can now capture test failures with complete HTTP context and provides all necessary tools for the agent to read, write, execute, and interact with the test suite.
+
+**Completed:**
+- ✅ **Failure Analyzer Module**: Automatic failure capture with HTTP context
+- ✅ **Agent Tools Development**: Five tools for file operations, test execution, and API calls
 
 **Upcoming Development:**
-- **Agent Tools Development**: Create tools for file operations, test execution, and API calls
 - **Healer Agent Core**: Build the LangChain agent with Claude integration for diagnosis and fix generation
 - **Test Generator Module**: Add capability to generate missing critical test cases
 - **Integration & Orchestration**: Wire all components into a single CLI workflow
