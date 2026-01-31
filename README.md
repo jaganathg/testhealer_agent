@@ -29,8 +29,10 @@ The codebase is organized into modular components:
 ```
 testhealer_agent/
 ├── src/
-│   ├── agent/          # Core healer agent (to be implemented)
-│   │   └── tools.py    # ✅ Agent tools for file ops, test execution, API calls (IMPLEMENTED)
+│   ├── agent/          # ✅ Core healer agent (IMPLEMENTED)
+│   │   ├── tools.py    # ✅ Agent tools for file ops, test execution, API calls (IMPLEMENTED)
+│   │   ├── healer.py   # ✅ Healer agent with LangChain integration (IMPLEMENTED)
+│   │   └── restore_utils.py  # ✅ Utilities to restore original test files (IMPLEMENTED)
 │   ├── analyzer/       # ✅ Failure analysis module (IMPLEMENTED)
 │   │   └── failure_parser.py  # Pydantic data models
 │   └── generator/      # Test generation module (to be implemented)
@@ -340,6 +342,149 @@ agent = create_agent(tools=ALL_TOOLS)
 - **Error resilience**: Structured error handling prevents agent crashes
 - **Logging support**: Backup operations logged for debugging
 
+## Healer Agent Core
+
+The healer agent is the core intelligence of the system, powered by Claude 3.5 Sonnet via LangChain. It automatically diagnoses test failures, generates fixes, validates them, and handles failures gracefully with rollback capabilities.
+
+**Components:**
+- **HealerAgent Class** (`src/agent/healer.py`): Main agent class that orchestrates the healing process
+- **HealerCallbackHandler**: Custom callback handler that captures agent reasoning for demo logging
+- **LangChain Integration**: Uses LangChain 1.2+ `create_agent` API with ReAct pattern
+
+### Architecture
+
+The healer agent follows a structured design pattern:
+
+1. **Initialization**: Sets up Claude LLM, binds tools, creates agent executor
+2. **Failure Loading**: Loads failure context from JSON files
+3. **Prompt Formatting**: Formats failure context into agent prompts
+4. **Agent Execution**: Runs LangChain agent with tools to diagnose and fix
+5. **Validation Loop**: Validates fixes by running tests (max 3 retry attempts)
+6. **Rollback**: Restores original files if all attempts fail
+
+### Core Features
+
+**Diagnosis Logic:**
+- Automatically categorizes failure types (API changes, test bugs, environment issues)
+- Analyzes failure context including HTTP responses, error messages, and tracebacks
+- Identifies root causes through LLM reasoning
+
+**Fix Generation:**
+- Uses agent tools to read test files and understand current code
+- Calls API to verify actual behavior
+- Generates minimal, targeted fixes that address root causes
+- Writes fixes with automatic backup creation
+
+**Validation & Retry:**
+- Runs tests after each fix attempt to validate success
+- Retries up to 3 times with increasing context on failure
+- Provides detailed feedback on each attempt
+
+**Rollback Mechanism:**
+- Automatically tracks backups created during file modifications
+- Restores original files if all fix attempts fail
+- Ensures test suite remains in a known state
+
+**Demo Logging:**
+- **Reasoning Output**: Captures and logs agent's diagnosis reasoning
+- **Action Output**: Logs each tool usage and action taken
+- **Result Output**: Logs fix outcomes with clear success/failure indicators
+
+### Demo Log Format
+
+The healer provides clear, demo-ready console output:
+
+```
+[DIAGNOSIS] test_get_user failed: KeyError
+[DIAGNOSIS] Error: 'firstName'
+[DIAGNOSIS] Expected: Leanne Graham, Actual: data["firstName"]
+
+[ATTEMPT 1/3] Healing test_get_user...
+
+[ANALYSIS] {agent reasoning content...}
+[ACTION] Using tool: read_test_file
+[ACTION] Using tool: call_api
+[ACTION] Using tool: write_test_file
+[DECISION] Detected: Field rename - 'firstName' → 'name'
+[VALIDATION] Running test_get_user...
+[RESULT] ✓ Test test_get_user passed after fix!
+```
+
+### HealerCallbackHandler
+
+A custom callback handler that intercepts agent execution to capture reasoning:
+
+- **on_llm_start/end**: Captures LLM reasoning steps
+- **on_tool_start/end**: Captures tool usage and extracts backup paths
+- **get_reasoning_log**: Returns all captured reasoning steps for logging
+- **clear**: Resets state between healing attempts
+
+### Usage
+
+**Basic Usage:**
+```python
+from src.agent.healer import HealerAgent
+
+# Initialize healer
+healer = HealerAgent(max_retries=3)
+
+# Heal a failure
+result = healer.heal_failure("failures/test_get_user_*.json")
+
+if result["success"]:
+    print(f"✓ Fixed {result['test_name']} in {result['attempts']} attempt(s)")
+else:
+    print(f"✗ Failed: {result['error']}")
+```
+
+**Healing Process:**
+1. Load failure JSON file with complete context
+2. Format prompt with failure details, API response, and error information
+3. Run agent with tools (read file, call API, write fix, run test)
+4. Validate fix by executing the test
+5. Retry with more context if validation fails
+6. Rollback if all attempts fail
+
+### System Prompt
+
+The agent uses a comprehensive system prompt that defines:
+- **Role**: Test healing specialist
+- **Rules**: Only modify tests/, validate fixes, use backups
+- **Failure Types**: API field renames, status code changes, endpoint changes, test bugs, env issues
+- **Workflow**: Read → Verify → Diagnose → Fix → Validate
+- **Output Format**: Structured reasoning with "Detected:", "Action:", "Result:" format
+
+### Error Handling
+
+- **Graceful Failures**: All errors are caught and returned as structured results
+- **Retry Logic**: Automatic retry with context accumulation
+- **Rollback Safety**: Original files always restored on failure
+- **Path Handling**: Supports both relative and absolute test file paths
+
+### Testing
+
+The healer agent is thoroughly tested with 17 unit tests in `tests/agent/test_healer.py`:
+- Callback handler tests (5 tests)
+- Agent initialization tests (2 tests)
+- Failure context loading tests (2 tests)
+- Prompt formatting tests (2 tests)
+- Decision extraction tests (2 tests)
+- Rollback tests (2 tests)
+- Integration tests (2 tests)
+
+All tests use mocks to avoid real LLM calls, ensuring fast and reliable testing.
+
+### Key Features
+
+- **Intelligent Diagnosis**: Uses Claude to understand failure root causes
+- **Automatic Fix Generation**: Produces corrected test code automatically
+- **Validation Loop**: Ensures fixes work before finalizing
+- **Rollback Protection**: Always restores original state on failure
+- **Demo-Ready Logging**: Clear, structured output for presentations
+- **Retry Logic**: Up to 3 attempts with context accumulation
+- **Tool Integration**: Seamlessly uses all 5 agent tools
+- **LangChain 1.2+ Compatible**: Updated for latest LangChain API
+
 ### How It Works
 
 The agent follows a reactive healing approach:
@@ -353,13 +498,13 @@ The agent follows a reactive healing approach:
 
 ## Next Steps
 
-The failure analyzer module and agent tools are fully implemented. The system can now capture test failures with complete HTTP context and provides all necessary tools for the agent to read, write, execute, and interact with the test suite.
+The core healing system is now fully functional. The system can capture test failures, diagnose root causes, generate fixes, and validate them automatically.
 
 **Completed:**
 - ✅ **Failure Analyzer Module**: Automatic failure capture with HTTP context
 - ✅ **Agent Tools Development**: Five tools for file operations, test execution, and API calls
+- ✅ **Healer Agent Core**: LangChain agent with Claude integration for diagnosis and fix generation
 
 **Upcoming Development:**
-- **Healer Agent Core**: Build the LangChain agent with Claude integration for diagnosis and fix generation
 - **Test Generator Module**: Add capability to generate missing critical test cases
 - **Integration & Orchestration**: Wire all components into a single CLI workflow
