@@ -35,7 +35,8 @@ testhealer_agent/
 │   │   └── restore_utils.py  # ✅ Utilities to restore original test files (IMPLEMENTED)
 │   ├── analyzer/       # ✅ Failure analysis module (IMPLEMENTED)
 │   │   └── failure_parser.py  # Pydantic data models
-│   └── generator/      # Test generation module (to be implemented)
+│   └── generator/      # ✅ Test generation module (IMPLEMENTED)
+│       └── generator.py  # ✅ Generator class for test generation (IMPLEMENTED)
 ├── tests/
 │   ├── conftest.py     # ✅ Pytest hooks and HTTP tracking (IMPLEMENTED)
 │   └── api/           # API test suite
@@ -43,6 +44,8 @@ testhealer_agent/
 │       ├── test_auth.py        # Post endpoints
 │       └── test_resources.py   # Comment endpoints
 ├── failures/           # ✅ Auto-generated failure JSON files (CREATED)
+├── scripts/            # ✅ Utility scripts (CREATED)
+│   └── cleanup_generated_tests.py  # ✅ Cleanup script for generated tests (IMPLEMENTED)
 ├── config/
 │   └── settings.py    # Configuration management
 ├── doc/               # Project documentation
@@ -485,6 +488,177 @@ All tests use mocks to avoid real LLM calls, ensuring fast and reliable testing.
 - **Tool Integration**: Seamlessly uses all 5 agent tools
 - **LangChain 1.2+ Compatible**: Updated for latest LangChain API
 
+## Test Generator Module
+
+The test generator module automatically identifies coverage gaps in the test suite and generates critical missing test cases using Claude 3.5 Sonnet. It uses smart prioritization to focus on high-value tests (error handling, validation, edge cases) while avoiding test flooding.
+
+**Components:**
+- **Generator Class** (`src/generator/generator.py`): Main generator class that orchestrates test generation
+- **Coverage Analysis**: Parses existing tests to understand current coverage
+- **Gap Detection**: Compares coverage against known API endpoints to identify missing tests
+- **Cleanup Script** (`scripts/cleanup_generated_tests.py`): Removes generated tests for demo purposes
+
+### Architecture
+
+The test generator follows a structured workflow:
+
+1. **Coverage Analysis**: Parses all existing test files to extract endpoint patterns and HTTP methods
+2. **Gap Identification**: Compares existing coverage against known API endpoints with priority rules
+3. **Test Generation**: Uses Claude LLM to generate test code matching existing test structure
+4. **Deduplication**: Checks for similar tests before adding to prevent duplicates
+5. **Validation**: Runs generated tests and only keeps passing tests
+6. **Cleanup**: Removes failed generated tests automatically
+
+### Core Features
+
+**Smart Prioritization:**
+- **Priority 1 (Highest)**: Error responses (404, 500, etc.) - critical for robustness
+- **Priority 2**: Validation errors (missing required fields, invalid data)
+- **Priority 3**: Data mutation endpoints (POST, PUT, DELETE) for edge cases
+- **Skip**: Duplicate happy-path tests and trivial GETs already covered
+
+**Coverage Gap Detection:**
+- Parses existing test files using regex to extract API call patterns
+- Normalizes URLs (e.g., `/users/1` → `/users/{id}`) for pattern matching
+- Compares against `KNOWN_ENDPOINTS` dictionary of API resources
+- Identifies missing error cases, validation scenarios, and edge cases
+
+**Structure Matching:**
+- Reads 2-3 existing test files as examples for LLM
+- Generates tests that match exact format: imports, BASE_URL, docstrings, assertions
+- Uses same `client` fixture and naming conventions
+- Ensures generated tests blend seamlessly with existing code
+
+**Deduplication:**
+- Checks test function names to prevent duplicates
+- Compares URL patterns and HTTP methods
+- Skips generation if similar test already exists
+
+**Validation & Quality Control:**
+- Validates Python syntax using `ast.parse()` before adding
+- Runs generated tests using pytest
+- Only keeps tests that pass on creation
+- Automatically removes failed tests to maintain test suite integrity
+
+**Marker System:**
+- Adds `# GENERATED_BY_AGENT` comment before each generated test
+- Enables easy identification and cleanup of generated tests
+- Cleanup script can remove all generated tests for demo resets
+
+### Generation Process
+
+The generator provides clear, demo-ready console output:
+
+```
+[TEST GENERATOR] Analyzing test coverage...
+[TEST GENERATOR] Found 8 endpoint patterns covered
+[TEST GENERATOR] Identified 3 critical gaps
+
+[GENERATION 1/3] GET /users/999 should return 404
+[VALIDATION] Running test_get_user_not_found...
+[RESULT] ✓ Test test_get_user_not_found generated and passed!
+
+[GENERATION 2/3] POST /users with invalid/missing required fields
+[VALIDATION] Running test_create_user_validation_error...
+[RESULT] ✓ Test test_create_user_validation_error generated and passed!
+```
+
+### Cleanup Script
+
+The cleanup script (`scripts/cleanup_generated_tests.py`) enables easy demo preparation:
+
+**Features:**
+- Finds all files containing `# GENERATED_BY_AGENT` marker
+- Removes only generated test functions (preserves original tests)
+- Removes blank lines before markers
+- Preserves original file ending style (checks git for accuracy)
+- Supports `--dry-run` flag for preview
+
+**Usage:**
+```bash
+# Preview what will be removed
+python scripts/cleanup_generated_tests.py --dry-run
+
+# Remove all generated tests
+python scripts/cleanup_generated_tests.py
+```
+
+The script ensures no unnecessary file changes by:
+- Checking git for original file ending style
+- Restoring files to exact committed state
+- Preventing git diff noise from whitespace changes
+
+### Usage
+
+**Basic Usage:**
+```python
+from src.generator import Generator
+
+# Initialize generator
+generator = Generator(max_generations=5)
+
+# Generate critical missing tests
+results = generator.generate_tests()
+
+# Check results
+for result in results:
+    if result["success"]:
+        print(f"✓ Generated {result['test_name']}: {result['description']}")
+    else:
+        print(f"✗ Failed: {result['error']}")
+```
+
+**Generation Process:**
+1. Analyzes existing test coverage by parsing test files
+2. Identifies critical gaps based on priority rules
+3. For each gap: generates test code using Claude LLM
+4. Validates syntax and checks for duplicates
+5. Adds test to appropriate file with marker
+6. Runs test to validate it passes
+7. Removes test if validation fails
+
+**Known Endpoints:**
+The generator uses a `KNOWN_ENDPOINTS` dictionary that defines:
+- Base endpoints for each resource (users, posts, comments, albums, photos, todos)
+- Supported HTTP methods per endpoint
+- Error cases to test (404 scenarios, validation errors)
+- Nested endpoints (e.g., `/posts/{id}/comments`)
+
+### Error Handling
+
+- **Graceful Failures**: All errors are caught and returned in structured results
+- **Syntax Validation**: Generated code is validated before adding to files
+- **Test Validation**: Only passing tests are kept in the test suite
+- **Automatic Cleanup**: Failed generated tests are automatically removed
+- **File Preservation**: Original file ending style is preserved from git
+
+### Testing
+
+The generator module is thoroughly tested with 24 unit tests in `tests/generator/test_generator.py`:
+- Initialization tests (2 tests)
+- Endpoint normalization tests (4 tests)
+- Coverage extraction tests (3 tests)
+- Duplicate detection tests (3 tests)
+- Syntax validation tests (2 tests)
+- Gap identification tests (2 tests)
+- Test parsing tests (2 tests)
+- File operations tests (2 tests)
+- Code generation tests (2 tests)
+- Integration flow tests (2 tests)
+
+All tests use mocks to avoid real LLM calls and file modifications, ensuring fast and reliable testing.
+
+### Key Features
+
+- **Smart Prioritization**: Focuses on high-value tests (errors, validation, mutations)
+- **No Test Flooding**: Limited by `max_generations` parameter (default: 5)
+- **Structure Matching**: Generated tests match existing test format exactly
+- **Deduplication**: Prevents duplicate test generation
+- **Quality Control**: Only keeps tests that pass on creation
+- **Demo-Ready Cleanup**: Easy removal of generated tests for repeat demos
+- **Git-Aware**: Preserves original file state to prevent unnecessary changes
+- **Comprehensive Testing**: 24 unit tests ensure reliability
+
 ### How It Works
 
 The agent follows a reactive healing approach:
@@ -504,7 +678,7 @@ The core healing system is now fully functional. The system can capture test fai
 - ✅ **Failure Analyzer Module**: Automatic failure capture with HTTP context
 - ✅ **Agent Tools Development**: Five tools for file operations, test execution, and API calls
 - ✅ **Healer Agent Core**: LangChain agent with Claude integration for diagnosis and fix generation
+- ✅ **Test Generator Module**: Smart test generation with prioritization and validation
 
 **Upcoming Development:**
-- **Test Generator Module**: Add capability to generate missing critical test cases
 - **Integration & Orchestration**: Wire all components into a single CLI workflow
