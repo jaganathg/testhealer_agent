@@ -40,3 +40,14 @@ def test_get_comments_by_post(client):
     assert len(data) == 5
     # BRITTLE: assumes all comments belong to post 1
     assert all(comment["postId"] == 1 for comment in data)
+
+def test_get_album_not_found(client):
+    """Test GET non-existent album."""
+    response = client.get(f"{BASE_URL}/albums/999")
+    assert response.status_code == 404
+
+# GENERATED_BY_AGENT
+def test_get_todo_not_found(client):
+    """Test GET non-existent todo."""
+    response = client.get(f"{BASE_URL}/todos/999")
+    assert response.status_code == 404

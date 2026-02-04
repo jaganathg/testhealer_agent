@@ -92,7 +92,7 @@ class Generator:
         """
         self.max_generations = max_generations
         self.llm = ChatAnthropic(
-            model="claude-3-5-sonnet-20241022",
+            model="claude-sonnet-4-20250514",
             api_key=ANTHROPIC_API_KEY,
             temperature=0.2  # Low temperature for consistent test generation
         )
@@ -179,6 +179,55 @@ class Generator:
         # Return with leading slash
         return f"/{url}" if url else None
     
+    def _has_existing_error_test(self, method: str, url_pattern: str, test_type: str) -> bool:
+        """Check if an error test already exists by examining test function names."""
+        try:
+            result = list_test_files()
+            if not result.get("success"):
+                return False
+            
+            # Look for test names that match error patterns
+            error_patterns = {
+                "not_found": ["not_found", "notfound", "404", "missing"],
+                "validation_error": ["validation", "invalid", "error", "400"],
+                "unauthorized": ["unauthorized", "auth", "401"],
+                "forbidden": ["forbidden", "403"]
+            }
+            
+            search_terms = error_patterns.get(test_type, [test_type])
+            normalized_url = self._normalize_endpoint(url_pattern)
+            
+            for test_file_path in result.get("files", []):
+                try:
+                    file_result = read_test_file(test_file_path)
+                    if not file_result.get("success"):
+                        continue
+                    
+                    content = file_result.get("content", "")
+                    
+                    # Skip generated tests
+                    if GENERATED_MARKER in content:
+                        continue
+                    
+                    # Check if file contains URL pattern and error test name
+                    if normalized_url and any(term in content.lower() for term in search_terms):
+                        # Check if URL pattern exists in this file
+                        if normalized_url.replace("/{id}", "") in content or url_pattern.replace("999", "") in content:
+                            # Look for test function names matching error pattern
+                            test_func_pattern = r'def\s+(test_\w+)'
+                            for match in re.finditer(test_func_pattern, content):
+                                test_name = match.group(1).lower()
+                                if any(term in test_name for term in search_terms):
+                                    # Verify it uses the same URL pattern
+                                    if url_pattern.replace("999", "") in content or normalized_url.replace("/{id}", "") in content:
+                                        return True
+                except Exception:
+                    continue
+            
+            return False
+        except Exception:
+            return False
+    
     def _identify_gaps(self, coverage: Dict[str, Set[str]]) -> List[Dict[str, Any]]:
         """
         Identify critical test gaps based on priority rules.
@@ -198,17 +247,19 @@ class Generator:
                 normalized = self._normalize_endpoint(url_pattern)
                 if normalized:
                     # Check if this error case is already tested
-                    test_key = f"{normalized}::{test_type}"
+                    # First check coverage, then check for existing error test by name
                     if normalized not in coverage or test_type not in str(coverage.get(normalized, set())):
-                        gaps.append({
-                            "priority": 1,  # Highest priority
-                            "resource": resource,
-                            "method": method,
-                            "url_pattern": url_pattern,
-                            "test_type": test_type,
-                            "expected_status": expected_status,
-                            "description": f"{method} {url_pattern} should return {expected_status}"
-                        })
+                        # Additional check: look for existing error test by name pattern
+                        if not self._has_existing_error_test(method, url_pattern, test_type):
+                            gaps.append({
+                                "priority": 1,  # Highest priority
+                                "resource": resource,
+                                "method": method,
+                                "url_pattern": url_pattern,
+                                "test_type": test_type,
+                                "expected_status": expected_status,
+                                "description": f"{method} {url_pattern} should return {expected_status}"
+                            })
             
             # Check mutation endpoints (POST, PUT, DELETE) for validation errors
             if "POST" in endpoint_info.get("methods", []):
@@ -472,35 +523,41 @@ BASE_URL = "https://jsonplaceholder.typicode.com"
             # Generate test code
             test_code = self._generate_test_code(gap)
             if not test_code:
+                error_msg = "Failed to generate test code (LLM error or timeout)"
+                print(f"[ERROR] {error_msg}")
                 results.append({
                     "success": False,
                     "test_name": f"test_{gap['test_type']}",
                     "file_path": None,
                     "description": gap["description"],
-                    "error": "Failed to generate test code"
+                    "error": error_msg
                 })
                 continue
             
             # Validate syntax
             if not self._validate_test_syntax(test_code):
+                error_msg = "Generated test has syntax errors"
+                print(f"[ERROR] {error_msg}")
                 results.append({
                     "success": False,
                     "test_name": f"test_{gap['test_type']}",
                     "file_path": None,
                     "description": gap["description"],
-                    "error": "Generated test has syntax errors"
+                    "error": error_msg
                 })
                 continue
             
             # Add to file
             success, file_path = self._add_test_to_file(test_code, gap["resource"])
             if not success:
+                error_msg = "Failed to add test to file (duplicate detected or file error)"
+                print(f"[ERROR] {error_msg}")
                 results.append({
                     "success": False,
                     "test_name": f"test_{gap['test_type']}",
                     "file_path": file_path,
                     "description": gap["description"],
-                    "error": "Failed to add test to file (duplicate or file error)"
+                    "error": error_msg
                 })
                 continue
             
